@@ -79,6 +79,6 @@ variable "it_depends_on" {
 //**********************************************************************************************
 locals {
   timeout_duration      = "1h"
-  private_endpoint_name = "${var.private_endpoint_prefix}${var.private_endpoint_suffix}"
+  private_endpoint_name = "${var.private_endpoint_prefix}${var.name}${var.private_endpoint_suffix}"
 }
 //**********************************************************************************************
