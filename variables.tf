@@ -42,6 +42,11 @@ variable "dns_zone_resource_group" {
   description = "(Optional) Resource group where the DNS zone should be created"
   default     = null
 }
+variable "private_dns_zone_ids" {
+  type        = list(string)
+  description = "(Optional) Specifies the list of Private DNS Zones to include within the private_dns_zone_group"
+  default     = null
+}
 variable "dns_zone_name" {
   type        = string
   description = "(Optional) The name of the Private DNS Zone"
@@ -109,7 +114,7 @@ variable "it_depends_on" {
 locals {
   timeout_duration      = "1h"
   private_endpoint_name = "${var.private_endpoint_prefix}${var.name}${var.private_endpoint_suffix}"
-  private_dns_zone_name = var.create_dns_zone ? azurerm_private_dns_zone.dns_zone[0].name : ""
-  private_dns_zone_id   = var.create_dns_zone ? azurerm_private_dns_zone.dns_zone[0].id : ""
+  private_dns_zone_name = var.create_dns_zone ? azurerm_private_dns_zone.dns_zone[0].name : var.dns_zone_name
+  private_dns_zone_ids  = var.create_dns_zone ? azurerm_private_dns_zone.dns_zone[0].id : var.private_dns_zone_ids
 }
 //**********************************************************************************************

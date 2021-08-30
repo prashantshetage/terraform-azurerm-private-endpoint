@@ -35,9 +35,9 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   }
 
   dynamic "private_dns_zone_group" {
-    for_each = var.create_dns_zone ? [1] : []
+    for_each = var.private_dns_zone_ids != null || var.create_dns_zone ? [1] : []
     content {
-      name                 = local.private_dns_zone_name
+      name                 = replace(local.private_dns_zone_name, ".", "-")
       private_dns_zone_ids = [local.private_dns_zone_id]
     }
   }
